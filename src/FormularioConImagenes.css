@@ -1,0 +1,204 @@
+/* src/FormularioConImagenes.css */
+
+:root {
+  --primary-color: #004e7c;
+  --secondary-color: #0073a8;
+  --accent-color: #f39c12;
+  --bg-color: #f5f8fa;
+  --card-bg: #ffffff;
+  --text-color: #333333;
+  --border-radius: 8px;
+  --input-padding: 10px 12px;
+  --spacing: 16px;
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--spacing);
+  background: var(--bg-color);
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing);
+}
+
+.form-header h1 {
+  color: var(--primary-color);
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.form-logo {
+  height: 60px;
+  width: auto;
+}
+
+/* Common field style */
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: var(--text-color);
+  font-size: 0.95rem;
+}
+
+.form-field input,
+.form-field select {
+  padding: var(--input-padding);
+  font-size: 0.95rem;
+  border: 1px solid #ccd1d9;
+  border-radius: var(--border-radius);
+  background: var(--card-bg);
+  transition: border-color 0.2s;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+  border-color: var(--secondary-color);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 115, 168, 0.2);
+}
+
+/* Section titles */
+.section-title {
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  margin: var(--spacing) 0 8px;
+  font-weight: 600;
+}
+
+/* Grid layouts */
+.grid-1fr-4 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing);
+  margin-bottom: var(--spacing);
+}
+
+.grid-2fr-1fr-1fr-1fr {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--spacing);
+  margin-bottom: var(--spacing);
+}
+
+.grid-5cols {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--spacing);
+  margin-bottom: var(--spacing);
+}
+
+.grid-2cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing);
+  margin-bottom: var(--spacing);
+}
+
+/* Checkbox group */
+.checkbox-group label {
+  margin-right: 16px;
+  font-size: 0.95rem;
+  color: var(--text-color);
+}
+
+/* Image slots */
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: var(--spacing);
+}
+
+.image-slot {
+  position: relative;
+  width: 100%;
+  padding-top: 75%;
+  border: 1px solid #ccd1d9;
+  border-radius: var(--border-radius);
+  background: #ffffff;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.image-slot:hover {
+  border-color: var(--secondary-color);
+}
+
+.image-slot img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-slot label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999999;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background: rgba(255,255,255,0.6);
+  transition: background 0.2s;
+}
+
+.image-slot label:hover {
+  background: rgba(255,255,255,0.9);
+}
+
+.image-slot input {
+  display: none;
+}
+
+/* Signatures */
+.signatures {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--spacing);
+}
+
+.signature-box {
+  width: 48%;
+  text-align: center;
+  border-top: 1px solid #ccd1d9;
+  padding-top: 8px;
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+
+/* Print button */
+.print-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background: var(--primary-color);
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.print-button:hover {
+  background: var(--secondary-color);
+}
+
+@media print {
+  .print-button { display: none; }
+}
