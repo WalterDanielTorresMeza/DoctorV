@@ -13,47 +13,49 @@
   --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Container */
 .form-container {
   max-width: 900px;
   margin: 0 auto;
   padding: var(--spacing);
   background: var(--bg-color);
+  font-family: var(--font-family);
 }
 
+/* Header */
 .form-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacing);
 }
-
 .form-header h1 {
   color: var(--primary-color);
   font-size: 1.8rem;
   font-weight: 600;
   margin: 0;
 }
-
 .form-logo {
   height: 60px;
   width: auto;
 }
 
-/* Common field style */
+/* Fields */
 .form-field {
   display: flex;
   flex-direction: column;
-}
 
+  
+}
 .form-field label {
   font-weight: 500;
   margin-bottom: 6px;
   color: var(--text-color);
   font-size: 0.95rem;
 }
-
 .form-field input,
-.form-field select {
+.form-field select,
+.form-field textarea {
   padding: var(--input-padding);
   font-size: 0.95rem;
   border: 1px solid #ccd1d9;
@@ -61,15 +63,15 @@
   background: var(--card-bg);
   transition: border-color 0.2s;
 }
-
 .form-field input:focus,
-.form-field select:focus {
+.form-field select:focus,
+.form-field textarea:focus {
   border-color: var(--secondary-color);
   outline: none;
   box-shadow: 0 0 0 2px rgba(0, 115, 168, 0.2);
 }
 
-/* Section titles */
+/* Section Titles */
 .section-title {
   font-size: 1.2rem;
   color: var(--primary-color);
@@ -77,10 +79,10 @@
   font-weight: 600;
 }
 
-/* Grid layouts */
+/* Grid Layouts */
 .grid-1fr-4 {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--spacing);
   margin-bottom: var(--spacing);
 }
@@ -88,6 +90,14 @@
 .grid-2fr-1fr-1fr-1fr {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--spacing);
+  margin-bottom: var(--spacing);
+}
+
+/* Row for Fecha / Edad / Folio */
+.grid-2fr-1fr-1fr {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
   gap: var(--spacing);
   margin-bottom: var(--spacing);
 }
@@ -106,36 +116,40 @@
   margin-bottom: var(--spacing);
 }
 
-/* Checkbox group */
+/* Checkbox Groups */
 .checkbox-group label {
   margin-right: 16px;
   font-size: 0.95rem;
   color: var(--text-color);
 }
 
-/* Image slots */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing);
+}
+
+
+/* Image Slots */
 .image-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
   margin-bottom: var(--spacing);
 }
-
 .image-slot {
   position: relative;
   width: 100%;
   padding-top: 75%;
   border: 1px solid #ccd1d9;
   border-radius: var(--border-radius);
-  background: #ffffff;
+  background: var(--card-bg);
   overflow: hidden;
   transition: border-color 0.2s;
 }
-
 .image-slot:hover {
   border-color: var(--secondary-color);
 }
-
 .image-slot img {
   position: absolute;
   top: 0;
@@ -144,7 +158,6 @@
   height: 100%;
   object-fit: cover;
 }
-
 .image-slot label {
   position: absolute;
   inset: 0;
@@ -157,11 +170,9 @@
   background: rgba(255,255,255,0.6);
   transition: background 0.2s;
 }
-
 .image-slot label:hover {
   background: rgba(255,255,255,0.9);
 }
-
 .image-slot input {
   display: none;
 }
@@ -172,7 +183,6 @@
   justify-content: space-between;
   margin-top: var(--spacing);
 }
-
 .signature-box {
   width: 48%;
   text-align: center;
@@ -182,7 +192,7 @@
   font-size: 0.9rem;
 }
 
-/* Print button */
+/* Print Button */
 .print-button {
   display: inline-block;
   padding: 10px 20px;
@@ -194,11 +204,149 @@
   cursor: pointer;
   transition: background 0.2s;
 }
-
 .print-button:hover {
   background: var(--secondary-color);
 }
-
 @media print {
-  .print-button { display: none; }
+  .print-button {
+    display: none;
+  }
 }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .form-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .form-logo {
+    margin-top: var(--spacing);
+    height: 50px;
+  }
+  .grid-2fr-1fr-1fr-1fr {
+    grid-template-columns: 1fr 1fr;
+  }
+  .grid-2fr-1fr-1fr {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-1fr-4,
+  .grid-2fr-1fr-1fr-1fr,
+  .grid-2fr-1fr-1fr {
+    grid-template-columns: 1fr 1fr;
+  }
+  .grid-5cols {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .grid-2cols {
+    grid-template-columns: 1fr;
+  }
+  .image-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .signatures {
+    flex-direction: column;
+  }
+  .signature-box {
+    width: 100%;
+    margin-bottom: var(--spacing);
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-1fr-4,
+  .grid-2fr-1fr-1fr-1fr,
+  .grid-2fr-1fr-1fr,
+  .grid-5cols,
+  .grid-2cols {
+    grid-template-columns: 1fr;
+  }
+  .image-grid {
+    grid-template-columns: 1fr;
+  }
+  .print-button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Asegura que todos los inputs, selects y textareas llenen su columna */
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.grid-5cols {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--spacing);
+  margin-bottom: var(--spacing);
+}
+
+.grid-2fr-1fr-1fr {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--spacing);
+  margin-bottom: var(--spacing);
+}
+
+/* Grupo vertical con checkbox a la izquierda */
+.checkbox-group.vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;    /* que empiece todo alineado a la izquierda */
+  gap: var(--spacing);
+}
+
+.checkbox-group.vertical label {
+  display: flex;
+  align-items: center;        /* centra verticalmente caja y texto */
+  font-weight: 400;           /* mantén texto en peso normal para respuestas */
+}
+
+/* separador entre checkbox y texto */
+.checkbox-group.vertical label input {
+  margin-right: 0.5rem;
+}
+
+
+/* Grid específicos para anomalías */
+.anomalies-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing);
+}
+
+/* Tres columnas para bloque de tres campos */
+.grid-3cols {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--spacing);
+}
+
+/* Inline group con separador */
+.checkbox-group.inline {
+  display: inline-flex;
+  align-items: center;
+}
+.checkbox-group.inline label {
+  font-weight: 400;        /* respuestas en peso normal */
+  margin: 0;               /* eliminamos margins extra */
+}
+.separator {
+  margin: 0 0.5rem;
+  color: var(--text-color);
+  user-select: none;
+}
+
+/* Preguntas en negrita */
+.form-field > label {
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: block;
+}
+
