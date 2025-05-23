@@ -2,7 +2,6 @@
 import React, { useRef, useState } from 'react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-
 import './FormularioConImagenes.css';
 
 export default function FormularioConImagenes() {
@@ -28,153 +27,427 @@ export default function FormularioConImagenes() {
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const imgProps = pdf.getImageProperties(imgData);
     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    pdf.addImage(imgData,'PNG',0,0,pdfWidth,pdfHeight);
     pdf.save('reporte-colposcopico.pdf');
   };
 
   return (
-    <div style={{ padding: 20, background: '#fff', fontFamily: 'sans-serif' }}>
-      {/* === INICIO del área que exportaremos a PDF ==== */}
+    <div className="form-container">
       <div ref={refFormulario}>
 
-        {/* --- TÍTULO PRINCIPAL --- */}
-        <h1 style={{ textAlign: 'center', marginBottom: 24 }}>REPORTE COLPOSCÓPICO</h1>
+        {/* Encabezado */}
+        <h1 className="section-title">REPORTE DE COLPOSCOPIA</h1>
 
-        {/* --- BLOQUE 1: PACIENTE --- */}
-        <div style={{ marginBottom: 16 }}>
-          <strong>PACIENTE:</strong><br/>
+        {/* PACIENTE: fila completa */}
+        <div className="form-field" style={{ marginBottom: '16px' }}>
+          <label>PACIENTE:</label>
           <input
             type="text"
-            name="paciente"
-            style={{ width: '100%', padding: 6, fontSize: 14 }}
+
           />
         </div>
 
-        {/* --- BLOQUE 2: MÉDICO / FECHA / EDAD / FOLIO --- */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '2fr 1fr 1fr 1fr',
-          gap: 12,
-          marginBottom: 24
-        }}>
-          <div>
-            <strong>MÉDICO A QUIÉN VA DIRIGIDO:</strong><br/>
-            <input type="text" name="medico" style={{ width: '100%', padding: 6 }} />
+        {/* FECHA DE ESTUDIO / EDAD / FOLIO */}
+        <div className="grid-2fr-1fr-1fr">
+          <div className="form-field">
+            <label>FECHA DE ESTUDIO:</label>
+            <input type="text" />
           </div>
-          <div>
-            <strong>FECHA DE ESTUDIO:</strong><br/>
-            <input type="date" name="fecha" style={{ width: '100%', padding: 6 }} />
+          <div className="form-field">
+            <label>EDAD:</label>
+            <input type="text"  />
           </div>
-          <div>
-            <strong>EDAD:</strong><br/>
-            <input type="number" name="edad" style={{ width: '100%', padding: 6 }} />
-          </div>
-          <div>
-            <strong>FOLIO:</strong><br/>
-            <input type="text" name="folio" style={{ width: '100%', padding: 6 }} />
+          <div className="form-field">
+            <label>FOLIO:</label>
+            <input type="text" />
           </div>
         </div>
 
-        {/* --- BLOQUE 3: DATOS GINECOLÓGICOS --- */}
-        <h2 style={{ marginBottom: 12 }}>Datos Ginecológicos</h2>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr',
-          gap: 12,
-          marginBottom: 24
-        }}>
-          {[
-            { label: 'Embarazos', name: 'embarazos', type: 'number' },
-            { label: 'Partos',    name: 'partos',    type: 'number' },
-            { label: 'Abortos',   name: 'abortos',   type: 'number' },
-            { label: 'Cesáreas',  name: 'cesareas',  type: 'number' },
-            { label: 'FUM',       name: 'fum',       type: 'date'   },
-          ].map(({ label, name, type }) => (
-            <div key={name}>
-              <strong>{label.toUpperCase()}:</strong><br/>
-              <input
-                type={type}
-                name={name}
-                style={{ width: '100%', padding: 6 }}
-              />
-            </div>
-          ))}
-        </div>
-
-        {/* --- BLOQUE 4: VAGINA / VULVA --- */}
-        <h2 style={{ marginBottom: 12 }}>Evaluación General de la Colposcopía</h2>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: 12,
-          marginBottom: 24
-        }}>
-          <div>
-            <strong>VAGINA:</strong><br/>
-            <select name="vagina" style={{ width: '100%', padding: 6 }}>
-              <option>Sin alteraciones aparentes</option>
-            </select>
+        {/* DATOS GINECOLÓGICOS */} 
+        <h2 className="section-title">DATOS GINECOLÓGICOS</h2>
+        <div className="grid-5cols">
+          <div className="form-field">
+            <label>EMBARAZOS:</label>
+            <input type="number" />
           </div>
-          <div>
-            <strong>VULVA:</strong><br/>
-            <select name="vulva" style={{ width: '100%', padding: 6 }}>
-              <option>Sin alteraciones aparentes</option>
-            </select>
+          <div className="form-field">
+            <label>PARTOS:</label>
+            <input type="number" />
+          </div>
+          <div className="form-field">
+            <label>CESÁREAS:</label>
+            <input type="number" />
+          </div>
+          <div className="form-field">
+            <label>ABORTOS:</label>
+            <input type="number" />
+          </div>
+          <div className="form-field">
+            <label>FUM:</label>
+            <input type="text" />
           </div>
         </div>
 
-        {/* --- BLOQUE 5: CHECKS --- */}
-        <div style={{ marginBottom: 24 }}>
-          <strong>CALIFICACIÓN:</strong><br/>
-          {[1,2,3].map(n => (
-            <label key={n} style={{ marginRight: 16 }}>
-              <input type="checkbox" name={`colpo${n}`} /> {n}
-            </label>
-          ))}
+        {/* VAGINA / VULVA */}
+        <div className="grid-2cols">
+          <div className="form-field">
+            <label>VAGINA:</label>
+            <input type="text"  />
+          </div>
+          <div className="form-field">
+            <label>VULVA:</label>
+            <input type="text"  />
+          </div>
         </div>
 
-        {/* --- BLOQUE 6: 4 IMÁGENES --- */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: 8,
-          marginBottom: 24
-        }}>
+        {/* EVALUACIÓN GENERAL DE LA COLPOSCOPIA */}
+        <h2 className="section-title">EVALUACIÓN GENERAL DE LA COLPOSCOPIA</h2>
+        <div className="checkbox-group" style={{ marginBottom: '16px' }}>
+        
+         
+          <label style={{
+    fontWeight: 500,
+    color: 'var(--text-color)',
+    fontSize: '0.95rem',
+    marginBottom: '6px',
+    display: 'block'    /* igual que .form-field > label */
+  }}> ADECUADA:</label>
+          <label><input type="checkbox" /> SI</label>
+          <label><input type="checkbox" /> NO</label>
+        </div>
+        <div className="checkbox-group" style={{ marginBottom: '16px' }}>
+          <label style={{
+    fontWeight: 500,
+    color: 'var(--text-color)',
+    fontSize: '0.95rem',
+    marginBottom: '6px',
+    display: 'block'    /* igual que .form-field > label */
+  }}>ZONA DE TRANSFORMACIÓN: </label>
+          <label><input type="checkbox" /> 1</label>
+          <label><input type="checkbox" /> 2</label>
+          <label><input type="checkbox" /> 3</label>
+        </div>
+       
+        <div className="checkbox-group" style={{ marginBottom: '24px' }}>
+          <label style={{
+    fontWeight: 500,
+    color: 'var(--text-color)',
+    fontSize: '0.95rem',
+    marginBottom: '6px',
+    display: 'block'    /* igual que .form-field > label */
+  }}>UNIÓN ESCAMOCILÍNDRICA:</label>
+          <label><input type="checkbox" /> VISIBLE</label>          
+          <label><input type="checkbox" /> NO VISIBLE</label>
+          <label><input type="checkbox" /> PARCIALMENTE VISIBLE</label>
+        </div>
+
+       {/* HALLAZGOS COLPOSCÓPICOS NORMALES */}
+<h2 className="section-title">HALLAZGOS COLPOSCÓPICOS NORMALES</h2>
+
+{/* Bloque 1: Escamoso + Deciduosis */}
+<div className="grid-2cols" style={{ marginBottom: '16px' }}>
+  
+<div className="form-field">
+  <label>EPITELIO ESCAMOSO ORIGINAL:</label>
+  <div className="checkbox-group vertical">
+    <label>
+      <input type="checkbox" name="maduro" />
+      MADURO
+    </label>
+    <label>
+      <input type="checkbox" name="atrofico" />
+      ATRÓFICO
+    </label>
+  </div>
+</div>
+<div className="form-field">
+  <label>DECIDUOSIS GESTACIONAL:</label>
+  <div className="checkbox-group vertical">
+    <label>
+      <input type="checkbox" name="maduro" />
+      SI
+    </label>
+    <label>
+      <input type="checkbox" name="atrofico" />
+      NO
+    </label>
+  </div>
+</div>
+
+</div>
+
+{/* Bloque 2 */}
+<div className="grid-2cols" style={{ marginBottom: '16px' }}>
+
+  <div className="form-field">
+  <label>EPITELIO METAPLÁSICO:</label>
+  <div className="checkbox-group vertical">
+    <label>
+      <input type="checkbox" name="maduro" />
+      NORMAL
+    </label>
+    <label>
+      <input type="checkbox" name="atrofico" />
+      ANORMAL
+    </label>
+  </div>
+</div>
+
+  <div className="form-field">
+  <label>ECTOPIA:</label>
+  <div className="checkbox-group vertical">
+    <label>
+      <input type="checkbox" name="maduro" />
+      SI
+    </label>
+    <label>
+      <input type="checkbox" name="atrofico" />
+      NO
+    </label>
+  </div>
+</div>
+</div>
+
+{/* Bloque 3: Cilíndrico + (vacío si no hay segundo campo) */}
+<div className="grid-2cols" style={{ marginBottom: '24px' }}>
+
+    <div className="form-field">
+  <label>EPITELIO CILÍNDRICO:</label>
+  <div className="checkbox-group vertical">
+    <label>
+      <input type="checkbox" name="maduro" />
+      NORMAL
+    </label>
+    <label>
+      <input type="checkbox" name="atrofico" />
+      ANORMAL
+    </label>
+  </div>
+</div>
+
+
+  {/* Si no hay nada a la derecha, déjalo vacío */}
+  <div className="form-field"></div>
+</div>
+
+
+        {/* HALLAZGOS COLPOSCÓPICOS ANORMALES */}
+        <h2 className="section-title">HALLAZGOS COLPOSCÓPICOS ANORMALES</h2>
+
+<div className="grid-2cols" style={{ marginBottom: '16px' }}>
+<div className="form-field">
+  <label>LESIÓN:</label>
+  <div className="checkbox-group vertical">
+    <label>
+      <input type="checkbox" name="maduro" />
+      GRADO 1
+    </label>
+    <label>
+      <input type="checkbox" name="atrofico" />
+      GRADO 2
+    </label>
+  </div>
+</div>
+<div className="form-field">
+  <label>DENTRO DE ZONA DE TRANSFORMACIÓN:</label>
+  <div className="checkbox-group vertical">
+    <label>
+      <input type="checkbox" name="maduro" />
+      SI
+    </label>
+    <label>
+      <input type="checkbox" name="atrofico" />
+      NO
+    </label>
+  </div>
+</div>
+</div>
+        <div className="grid-2cols">
+
+          <div className="form-field">
+            <label>RADIO:</label>
+            <input type="text" />
+          </div>
+          <div className="form-field">
+            <label>CUADRANTE:</label>
+            <input type="text"/>
+          </div>
+        </div>
+        <div className="grid-2cols" style={{ marginBottom: '24px' }}>
+          <div className="form-field">
+            <label>% SEC:</label>
+            <input type="text"  />
+          </div>
+          <div className="form-field">
+            <label>HALLAZGOS INESPECÍFICOS:</label>
+            <input type="text"  />
+          </div>
+
+
+<div className="form-field">
+  <label>SOSPECHA DE INVASIÓN:</label>
+  <div className="checkbox-group vertical">
+    <label>
+      <input type="checkbox" name="maduro" />
+      SI
+    </label>
+    <label>
+      <input type="checkbox" name="atrofico" />
+      NO
+    </label>
+  </div>
+</div>
+<div className="form-field">
+  <label>NECROSIS:</label>
+  <div className="checkbox-group vertical">
+    <label>
+      <input type="checkbox" name="maduro" />
+      SI
+    </label>
+    <label>
+      <input type="checkbox" name="atrofico" />
+      NO
+    </label>
+  </div>
+</div>
+<div className="form-field">
+  <label>ULCERACIÓN:</label>
+  <div className="checkbox-group vertical">
+    <label>
+      <input type="checkbox" name="maduro" />
+      SI
+    </label>
+    <label>
+      <input type="checkbox" name="atrofico" />
+      NO
+    </label>
+  </div>
+</div>
+<div className="form-field">
+  <label>LESIÓN NODULAR:</label>
+  <div className="checkbox-group vertical">
+    <label>
+      <input type="checkbox" name="maduro" />
+      SI
+    </label>
+    <label>
+      <input type="checkbox" name="atrofico" />
+      NO
+    </label>
+  </div>
+</div>
+<div className="form-field">
+  <label>VASOS ATÍPICOS:</label>
+  <div className="checkbox-group vertical">
+    <label>
+      <input type="checkbox" name="maduro" />
+      SI
+    </label>
+    <label>
+      <input type="checkbox" name="atrofico" />
+      NO
+    </label>
+  </div>
+</div>
+</div>
+
+        {/* HALLAZGOS VARIOS */}
+        <h2 className="section-title">HALLAZGOS VARIOS</h2>
+
+<div className="grid-2cols" style={{ marginBottom: '16px' }}>
+<div className="form-field">
+  <label>ZONA DE TRANSFORMACIÓN CONGENITA:</label>
+  <div className="checkbox-group vertical">
+    <label>
+      <input type="checkbox" name="maduro" />
+      SI
+    </label>
+    <label>
+      <input type="checkbox" name="atrofico" />
+      NO
+    </label>
+  </div>
+</div>
+<div className="form-field">
+  <label>PÓLIPOS:</label>
+  <div className="checkbox-group vertical">
+    <label>
+      <input type="checkbox" name="maduro" />
+      SI
+    </label>
+    <label>
+      <input type="checkbox" name="atrofico" />
+      NO
+    </label>
+  </div>
+</div>
+<div className="form-field">
+  <label>CONILOMA:</label>
+  <div className="checkbox-group vertical">
+    <label>
+      <input type="checkbox" name="maduro" />
+      SI
+    </label>
+    <label>
+      <input type="checkbox" name="atrofico" />
+      NO
+    </label>
+  </div>
+</div>
+<div className="form-field">
+  <label>ESTENOSIS:</label>
+  <div className="checkbox-group vertical">
+    <label>
+      <input type="checkbox" name="maduro" />
+      SI
+    </label>
+    <label>
+      <input type="checkbox" name="atrofico" />
+      NO
+    </label>
+  </div>
+</div>
+<div className="form-field">
+  <label>ANOMALÍAS POSTRATAMIENTO:</label>
+  <div className="checkbox-group vertical">
+    <label>
+      <input type="checkbox" name="maduro" />
+      SI
+    </label>
+    <label>
+      <input type="checkbox" name="atrofico" />
+      NO
+    </label>
+  </div>
+</div>
+<div className="form-field">
+  <label>ENDOMETRIOSIS:</label>
+  <div className="checkbox-group vertical">
+    <label>
+      <input type="checkbox" name="maduro" />
+      SI
+    </label>
+    <label>
+      <input type="checkbox" name="atrofico" />
+      NO
+    </label>
+  </div>
+</div>
+</div>
+
+        {/* ÁREA DE IMÁGENES */}
+        <h2 className="section-title">IMÁGENES COLPOSCÓPICAS</h2>
+        <div className="image-grid">
           {imagenes.map((src, i) => (
-            <div key={i} style={{
-              position: 'relative',
-              width: '100%',
-              paddingTop: '75%',
-              border: '1px solid #666',
-              background: '#f7f7f7',
-              overflow: 'hidden'
-            }}>
+            <div className="image-slot" key={i}>
               {src ? (
-                <img
-                  src={src}
-                  alt={`Imagen ${i+1}`}
-                  style={{
-                    position: 'absolute',
-                    top:0, left:0,
-                    width:'100%', height:'100%',
-                    objectFit:'cover'
-                  }}
-                />
+                <img src={src} alt={`Colposcópica ${i+1}`} />
               ) : (
-                <label style={{
-                  position: 'absolute',
-                  inset: 0,
-                  display:'flex',
-                  alignItems:'center',
-                  justifyContent:'center',
-                  color:'#888',
-                  cursor:'pointer'
-                }}>
+                <label>
                   + Cargar imagen
                   <input
                     type="file"
                     accept="image/*"
-                    style={{ display:'none' }}
                     onChange={e => handleImageChange(i, e)}
                   />
                 </label>
@@ -183,31 +456,30 @@ export default function FormularioConImagenes() {
           ))}
         </div>
 
-        {/* --- BLOQUE 7: FIRMAS --- */}
-        <div style={{
-          display:'flex',
-          justifyContent:'space-between'
-        }}>
-          <div style={{ width:'48%', textAlign:'center', borderTop:'1px solid #666', paddingTop:4 }}>
-            MÉDICO QUE REALIZA<br/>FIRMA
-          </div>
-          <div style={{ width:'48%', textAlign:'center', borderTop:'1px solid #666', paddingTop:4 }}>
-            MÉDICO REVISOR<br/>FIRMA
+        {/* DIAGNÓSTICO Y COMENTARIOS */}
+        <div className="form-field" style={{ marginBottom: '16px' }}>
+          <label>DIAGNÓSTICO COLPOSCÓPICO:</label>
+          <input type="text" placeholder="Elija un elemento" />
+        </div>
+        <div className="form-field" style={{ marginBottom: '24px' }}>
+          <label>COMENTARIOS Y PLAN DE MANEJO:</label>
+          <textarea rows="3" placeholder="Escriba comentarios y plan de manejo" />
+        </div>
+
+        {/* Firmas */}
+        <div className="signatures">
+          <div className="signature-box">
+            ____________________________________________<br/>
+            DR LUIS ANGEL HURTADO ALVAREZ<br/>
+            GINECOLOGÍA Y OBSTETRICIA / REPRODUCCIÓN ASISTIDA<br/>
+            COLPOSCOPIA Y PATOLOGÍA VULVOVAGINAL<br/>
+            CP 11399310 / C.ESP. 13311567
           </div>
         </div>
       </div>
-      {/* === FIN del área que exportamos a PDF ==== */}
-
-      {/* --- BOTÓN DE IMPRESIÓN --- */}
-      <button
-        onClick={handlePrint}
-        style={{
-          marginTop: 24,
-          padding: '8px 16px',
-          fontSize: 16,
-          cursor: 'pointer'
-        }}
-      >
+      {/* Botón de impresión */}
+      <br/>
+      <button className="print-button" onClick={handlePrint}>
         Generar e imprimir PDF
       </button>
     </div>
